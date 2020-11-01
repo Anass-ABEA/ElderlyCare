@@ -1,0 +1,11 @@
+<form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput formControlName="username" placeholder="Username" type="text" required>
+        <mat-error *ngIf="loginError.username">{{loginError.username}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="password" placeholder="Password" type="password" required>
+        <mat-error *ngIf="loginError.password">{{loginError.password}}</mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="loginForm.invalid">Submit</button>
+</form>
