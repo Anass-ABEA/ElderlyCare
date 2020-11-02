@@ -4,5 +4,5 @@ import {WelcomeComponent} from '../welcome/welcome.component';
 export const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/welcome', pathMatch: 'full' },
 ];

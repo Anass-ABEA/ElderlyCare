@@ -1,3 +1,47 @@
-<p>
-  signup works!
-</p>
+<mat-toolbar color="primary">
+  Welcome to ElderyCare, please sign up.
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+
+<form novalidate [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
+<div fxLayout ="column">
+  <mat-form-field>
+    <input matInput formControlName="username" placeholder="Username" type="text" required>
+    <mat-error *ngIf="SignupForm.get('username').hasError('required') && SignupForm.get('username').touched ">Username is required</mat-error>
+  </mat-form-field>
+ 
+  <mat-form-field>
+    <input matInput formControlName="password" placeholder="password" type="password" required>
+    <mat-error *ngIf="SignupForm.get('password').hasError('required') && SignupForm.get('password').touched ">Password is required</mat-error>
+  </mat-form-field>
+</div>
+
+  <mat-form-field>
+    <input matInput formControlName="Confirmpassword" placeholder="Confirm Password" type="password" required>
+    <mat-error *ngIf="SignupForm.get('Confirmpassword').hasError('required') && SignupForm.get('Confirmpassword').touched ">
+      Please confirm your password</mat-error>
+  </mat-form-field>
+<div fxLayout="column">
+  <mat-form-field>
+    <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
+    <mat-error *ngIf="SignupForm.get('firstname').hasError('required') && SignupForm.get('firstname').touched ">
+      First Name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
+    <mat-error *ngIf="SignupForm.get('lastname').hasError('required') && SignupForm.get('lastname').touched ">
+      Last Name is required</mat-error>
+  </mat-form-field>
+</div>
+<div fxLayout ="column">
+  <mat-slide-toggle formControlName="inNeed" >Are you in need ?</mat-slide-toggle>
+
+  <button type="submit" [disabled]="SignupForm.invalid || ConfirmationWrong()" mat-button >Submit</button>
+</div>
+
+
+
+
+</form>

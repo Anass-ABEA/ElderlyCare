@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, pipe, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { baseURL } from '../baseurl';
@@ -16,6 +16,10 @@ interface JWTResponse {
   status: string;
   success: string;
   user: any;
+}
+interface Signupresponse{
+  succes:boolean;
+  status:string;
 }
 
 @Injectable({
@@ -83,8 +87,13 @@ export class AuthService {
      localStorage.removeItem(this.tokenKey);
    }
 
-  signUp() {
-
+  signUp(user:any) : Observable<any> {
+    return this.http.post<Signupresponse>(baseURL +'users/signup' , 
+    {'username':user.username, 'password':user.password, 'firstname':user.firstname,'lastname':user.lastname, 'inNeed':user.inNeed})
+    .pipe(map(res=>{
+      console.log(res);
+      return{'succes':true , 'message' :'registration done'};
+    }))
    }
 
    logIn(user: any): Observable<any> {
