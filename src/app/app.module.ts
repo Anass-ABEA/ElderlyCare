@@ -13,13 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
