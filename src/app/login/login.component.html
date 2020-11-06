@@ -1,4 +1,10 @@
-<form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<mat-toolbar color="primary">
+  Login
+<span class="flex-spacer"></span>
+<button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+
+<form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayout ="column">
       <mat-form-field>
         <input matInput formControlName="username" placeholder="Username" type="text" required>
         <mat-error *ngIf="loginError.username">{{loginError.username}}</mat-error>

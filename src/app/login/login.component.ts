@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {MatDialogRef} from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,7 +25,10 @@ export class LoginComponent implements OnInit {
       required:'Password is required.',
     }
   }
-  constructor(private fb: FormBuilder, private router:Router, private authService:AuthService) {
+  constructor(private fb: FormBuilder,
+     private router:Router,
+      private authService:AuthService,
+      private matref:MatDialogRef<LoginComponent>) {
     this.createForm()
   }
   ngOnInit() {
@@ -64,19 +68,14 @@ OnValueChange(data:any){
 }
 
 onSubmit() {
-  console.log('User: ', this.user);
-  this.authService.logIn(this.user)
-    .subscribe(res => {
-      if (res.success) {
-        this.router.navigate(['welcome']);
-      } else {
+    this.authService.logIn(this.user)
+    .subscribe(res=>{
+      if(res.success){
+        this.matref.close(true);
+      }
+      else{
         console.log(res);
       }
-    },
-    error => {
-      console.log(error);
-      this.errMess = error;
-    });
+    })
 }
-
 }

@@ -26,12 +26,11 @@ interface Signupresponse{
   providedIn: 'root'
 })
 export class AuthService {
-
   tokenKey = 'JWT';
-  isAuthenticated: Boolean = false;
+  isAuthenticated: boolean = false;
   username: Subject<string> = new Subject<string>();
   authToken: string = undefined;
-  IsAuthenticatedInNeed: Boolean = false;
+  IsAuthenticatedInNeed: boolean = false;
    constructor(private http: HttpClient,
      private processHTTPMsgService: ProcessHTTPMsgService) {
    }
@@ -101,7 +100,7 @@ export class AuthService {
       {'username': user.username, 'password': user.password})
       .pipe( map(res => {
           if(res.inNeed){
-            console.log("In Need");
+            console.log("In Need" );
           }
           else{
             console.log("Not in need");
@@ -126,5 +125,8 @@ export class AuthService {
 
    getToken(): string {
      return this.authToken;
+   }
+   getInNeed():boolean{
+     return this.IsAuthenticatedInNeed;
    }
 }

@@ -19,7 +19,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatMenuModule} from '@angular/material/menu';
+
 import 'hammerjs';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import 'hammerjs';
     LoginComponent,
     WelcomeComponent,
     SignupComponent,
-    HeaderComponent
+    HeaderComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -44,10 +48,12 @@ import 'hammerjs';
     AppRoutingModule,
     HttpClientModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   entryComponents: [
-    SignupComponent
+    SignupComponent,
+    LoginComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
