@@ -1,0 +1,51 @@
+<div class ="maindiv"
+fxLayout="column"
+fxFlex = "50%"
+>
+<div>
+  <h1>Fulfill your request</h1>
+  <h4>Make sure you fulfill it correctly , so people may help you without any problem</h4>
+</div>
+  <form novalidate [formGroup]="RequestForm" (ngSubmit)="onSubmit()">
+    <div fxLayoutGap="2%">
+      <mat-form-field appearance="fill">
+        <mat-label>Type ?</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of Types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    <mat-slide-toggle formControlName="urgent">Urgent</mat-slide-toggle>
+    </div>
+    <hr>
+    <div fxLayoutGap="5%">
+      <mat-form-field>
+        <input matInput formControlName="familySituation" placeholder="Your family situation" type="text" required>
+        <mat-error *ngIf="RequestForm.get('familySituation').hasError('required') && RequestForm.get('familySituation').touched ">
+          Your family situation is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="subject" placeholder="What do you need ?" type="text" required>
+        <mat-error *ngIf="RequestForm.get('subject').hasError('required') && RequestForm.get('subject').touched ">
+          Fulfill this field, so people may help you.</mat-error>
+      </mat-form-field>
+    </div>
+    <hr>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input formControlName="dueDate" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <hr>
+    <div fxLayoutAlign = "center center">
+    <button type="submit" color = "primary" [disabled]="RequestForm.invalid" fxFlex="60%" mat-raised-button >Submit</button>
+    </div>
+    
+  </form>
+</div>

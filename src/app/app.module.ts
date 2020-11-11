@@ -20,9 +20,17 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+import { AuthInterceptor, UnauthorizedInterceptor } from './services/aut.interceptor';
+import {AuthService} from './services/auth.service';
+import {AuthGuardService} from './services/auth-guard.service';
 
 import 'hammerjs';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { RequestsComponent } from './requests/requests.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 @NgModule({
@@ -32,7 +40,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
     WelcomeComponent,
     SignupComponent,
     HeaderComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,13 +58,29 @@ import { FeedbackComponent } from './feedback/feedback.component';
     HttpClientModule,
     MatToolbarModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   entryComponents: [
     SignupComponent,
     LoginComponent
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
