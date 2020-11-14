@@ -20,15 +20,20 @@ export class RequestsComponent implements OnInit {
 
   constructor(private reqService:RequestService,
      private fb:FormBuilder, private authser:AuthService) { }
-     inNeed: boolean = this.authser.IsAuthenticatedInNeed;
-     Authenticated : boolean = this.authser.isAuthenticated;
+     inNeed:boolean;
+     Authenticated:boolean;
+
   ngOnInit() {
-    console.log(this.inNeed);
-    console.log(this.Authenticated);
     this.reqService.getRequests()
     .subscribe(requests => {this.Requests = requests; console.log(this.Requests)},
       errmess=> this.errMessage = <any>errmess);
     this.createForm();
+    this.inNeed = this.authser.IsAuthenticatedInNeed;
+    this.Authenticated = this.authser.isAuthenticated;
+    console.log(this.inNeed);
+    console.log(this.Authenticated);
+    this.reqService.getRequests()
+      .subscribe((req) => this.Requests = req, errmess => this.errMessage = <any>errmess)
   }
   
 
@@ -58,6 +63,4 @@ export class RequestsComponent implements OnInit {
     this.authser.checkJWTtoken();
   }
 
-
-  
 }

@@ -26,6 +26,8 @@ import {MatNativeDateModule} from '@angular/material';
 import { AuthInterceptor, UnauthorizedInterceptor } from './services/aut.interceptor';
 import {AuthService} from './services/auth.service';
 import {AuthGuardService} from './services/auth-guard.service';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import 'hammerjs';
 import { FeedbackComponent } from './feedback/feedback.component';
@@ -62,6 +64,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatTabsModule
   ],
   entryComponents: [
     SignupComponent,

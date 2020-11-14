@@ -1,4 +1,4 @@
-<div class ="maindiv"
+<div *ngIf="inNeed" class ="maindiv"
 fxLayout="column"
 fxFlex = "50%"
 >
@@ -48,4 +48,24 @@ fxFlex = "50%"
     </div>
     
   </form>
+</div>
+
+<div *ngIf ="!inNeed">
+  <mat-card *ngFor="let request of Requests" fxFlex="30%">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{request.familySituation}}</mat-card-title>
+      <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        {{request.subject}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>HELP</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

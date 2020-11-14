@@ -4,6 +4,8 @@ import { SignupComponent } from '../signup/signup.component';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../services/auth.service';
 import { LoginComponent } from '../login/login.component';
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,7 +17,7 @@ export class HeaderComponent implements OnInit {
   isInNeed:boolean;
   isAuthenticated:boolean;
   constructor(private dialog:MatDialog,
-    private authservice:AuthService) { }
+    private authservice:AuthService,private router:Router) { }
 
   ngOnInit() {
     this.subscription = this.authservice.getUsername().
@@ -43,5 +45,6 @@ export class HeaderComponent implements OnInit {
   }
   logOut(){
     this.authservice.logOut();
+    this.router.navigateByUrl('/welcome');
   }
 }
