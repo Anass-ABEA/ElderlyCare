@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <span><img src="/assets/images/logo.png" height=30 width=41></span>
-  <a mat-button routerLink="/home" routerLinkActive="active"><span class="fa fa-home fa-lg"></span> Home</a>
+  <a mat-button routerLink="/welcome" routerLinkActive="active"><span class="fa fa-home fa-lg"></span> Home</a>
   <a mat-button routerLink="/aboutus" routerLinkActive="active"><span class="fa fa-info fa-lg"></span> About</a>
   <a mat-button routerLink="/contactus" routerLinkActive="active"><span class="fa fa-address-card fa-lg"></span> Contact</a>
   <a mat-button *ngIf="!isInNeed && isAuthenticated" routerLink="/requests" routerLinkActive="active"><span class="fa fa-volume-control-phone fa-lg"></span> Check Requests</a>
@@ -14,7 +14,7 @@
   <button *ngIf="isAuthenticated && username" mat-button [matMenuTriggerFor]="request"><span class="fa fa-user-circle fa-lg"></span>{{username | uppercase}} </button>
     <mat-menu #request="matMenu" [overlapTrigger]="false">
     <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/feedback"><span class="fa fa-commenting fa-lg"></span>Give a feedback</button>
-    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/feedback"><span class="fa fa-database fa-lg"></span>Check out my requests</button>
+    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/myRequests"><span class="fa fa-database fa-lg"></span>Check out my requests</button>
     <button mat-menu-item (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span>Log out</button>
     </mat-menu>
 

@@ -9,5 +9,6 @@ export interface request {
     loading:boolean,
     reqResponded:boolean,
     urgent:boolean,
-    user:user
+    user:user,
+    helper:user
 }

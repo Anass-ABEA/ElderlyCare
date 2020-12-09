@@ -28,11 +28,13 @@ import {AuthService} from './services/auth.service';
 import {AuthGuardService} from './services/auth-guard.service';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
-
-import 'hammerjs';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { RequestsComponent } from './requests/requests.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { MyrequestsComponent } from './myrequests/myrequests.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     SignupComponent,
     HeaderComponent,
     FeedbackComponent,
-    RequestsComponent
+    RequestsComponent,
+    MyrequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,10 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatListModule
   ],
   entryComponents: [
     SignupComponent,

@@ -1,0 +1,49 @@
+<div fxLayout = "row"
+fxLayout.lt-sm="column"
+fxLayoutGap="50px">
+  <div fxFlex="30%">
+    <h1>Your requests</h1>
+    <h3>You can check here, the state of your requests</h3>
+    <h3>Any requests whose due date is expired, will be automaticaly deleted</h3>
+  </div>
+  <hr>
+  <div fxFlex = "70%" class = "flex-spacer">
+    <h1>Your profil : </h1>
+    <h3>Full name : {{CurrentUser.firstname}} {{CurrentUser.lastname}}.</h3>
+    <h3 *ngIf="CurrentUser.inNeed">In need.</h3>
+  </div>
+</div>
+<hr>
+<div fxLayout.lt-sm="column"
+      fxLayout = "row"
+      fxLayoutGap="20px"
+      >
+<div fxLayoutAlign="start center">
+<mat-card *ngFor="let request of Myrequests">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Family Situation : {{request.familySituation}}</mat-card-title>
+    <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://image.api.playstation.com/vulcan/ap/rnd/202009/3021/ONwZGjz4oxlLUpqBPu6nx8tl.png">
+        <mat-card-content>
+          <p>
+            {{request.subject}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)">DELETE REQUEST</button>
+            <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)" *ngIf="request.loading">In process,got it?</button>
+        </mat-card-actions>
+</mat-card>
+</div>
+</div>
+
+
+
+<div>
+  <h1>Feedbacks</h1>
+  <h3>Some feedbacks about our service </h3>
+</div>
+
+

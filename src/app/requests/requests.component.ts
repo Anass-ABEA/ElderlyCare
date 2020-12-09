@@ -4,6 +4,7 @@ import {RequestService} from '../services/request.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import { MatIconRegistry } from '@angular/material';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -12,28 +13,33 @@ import { MatIconRegistry } from '@angular/material';
   styleUrls: ['./requests.component.scss']
 })
 export class RequestsComponent implements OnInit {
-  Requests : request[];
+  NormalRequests : request[];
+  UrgentRequests : request[];
   errMessage : string;
   RequestForm:FormGroup;
   Types : Array<String> = ["Money","Medical","Food/Grossery"];
   Request:Object;
 
-  constructor(private reqService:RequestService,
+  constructor(private reqService:RequestService,private router:Router,
      private fb:FormBuilder, private authser:AuthService) { }
      inNeed:boolean;
+     reqTaken:boolean = false;
      Authenticated:boolean;
 
   ngOnInit() {
-    this.reqService.getRequests()
-    .subscribe(requests => {this.Requests = requests; console.log(this.Requests)},
+    this.reqService.getNormalRequests()
+    .subscribe(requests => {this.NormalRequests = requests;},
       errmess=> this.errMessage = <any>errmess);
+      
+    this.reqService.getUrgentRequests()
+    .subscribe(requests => {this.UrgentRequests = requests;},
+      errmess=> this.errMessage = <any>errmess);
+
     this.createForm();
     this.inNeed = this.authser.IsAuthenticatedInNeed;
     this.Authenticated = this.authser.isAuthenticated;
     console.log(this.inNeed);
     console.log(this.Authenticated);
-    this.reqService.getRequests()
-      .subscribe((req) => this.Requests = req, errmess => this.errMessage = <any>errmess)
   }
   
 
@@ -51,16 +57,24 @@ export class RequestsComponent implements OnInit {
 
   onSubmit(){
     this.Request = {
-    type:this.RequestForm.controls['type'].value,
-    familySituation:this.RequestForm.controls['familySituation'].value,
-    subject: this.RequestForm.controls['subject'].value,
-    loading:this.RequestForm.controls['loading'].value,
-    reqResponded:this.RequestForm.controls['reqResponded'].value,
-    urgent:this.RequestForm.controls['urgent'].value,
-    dueDate:this.RequestForm.controls['dueDate'].value}
+        type:this.RequestForm.controls['type'].value,
+        familySituation:this.RequestForm.controls['familySituation'].value,
+        subject: this.RequestForm.controls['subject'].value,
+        loading:this.RequestForm.controls['loading'].value,
+        reqResponded:this.RequestForm.controls['reqResponded'].value,
+        urgent:this.RequestForm.controls['urgent'].value,
+        dueDate:this.RequestForm.controls['dueDate'].value}
     this.reqService.postRequest(this.Request)
     .subscribe(res=>{console.log(res)});
     this.authser.checkJWTtoken();
   }
 
+  Clik(id:any){
+      console.log(id);
+  }
+
+  requestTaken(id:any){
+    this.reqService.putRequest(id)
+    .subscribe(requests => this.UrgentRequests = requests.filter(el=>el.urgent));
+  }
 }

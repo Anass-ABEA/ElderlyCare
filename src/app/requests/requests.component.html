@@ -1,71 +1,129 @@
 <div *ngIf="inNeed" class ="maindiv"
-fxLayout="column"
-fxFlex = "50%"
->
-<div>
-  <h1>Fulfill your request</h1>
-  <h4>Make sure you fulfill it correctly , so people may help you without any problem</h4>
-</div>
-  <form novalidate [formGroup]="RequestForm" (ngSubmit)="onSubmit()">
-    <div fxLayoutGap="2%">
-      <mat-form-field appearance="fill">
-        <mat-label>Type ?</mat-label>
-        <mat-select formControlName="type">
-          <mat-option *ngFor="let type of Types" [value]="type">
-            {{type}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-    <mat-slide-toggle formControlName="urgent">Urgent</mat-slide-toggle>
-    </div>
-    <hr>
-    <div fxLayoutGap="5%">
-      <mat-form-field>
-        <input matInput formControlName="familySituation" placeholder="Your family situation" type="text" required>
-        <mat-error *ngIf="RequestForm.get('familySituation').hasError('required') && RequestForm.get('familySituation').touched ">
-          Your family situation is required</mat-error>
-      </mat-form-field>
+fxLayout="row"
+fxLayout.lt-md="column"
 
-      <mat-form-field>
-        <input matInput formControlName="subject" placeholder="What do you need ?" type="text" required>
-        <mat-error *ngIf="RequestForm.get('subject').hasError('required') && RequestForm.get('subject').touched ">
-          Fulfill this field, so people may help you.</mat-error>
-      </mat-form-field>
-    </div>
-    <hr>
+fxGap="40%">
+
+  <div fxLayout="column"
+  fxFlex = "70%">
     <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input formControlName="dueDate" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <h1>Fulfill your request</h1>
+      <h4>Make sure you fulfill it correctly , so people may help you without any problem</h4>
     </div>
-    <hr>
-    <div fxLayoutAlign = "center center">
-    <button type="submit" color = "primary" [disabled]="RequestForm.invalid" fxFlex="60%" mat-raised-button >Submit</button>
+    <div>
+      <form novalidate [formGroup]="RequestForm" (ngSubmit)="onSubmit()">
+        <div fxLayoutGap="2%">
+          <mat-form-field appearance="fill">
+            <mat-label>Type ?</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of Types" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+        <mat-slide-toggle formControlName="urgent">Urgent</mat-slide-toggle>
+        </div>
+        <hr>
+        <div
+        fxLayout="column">
+          <mat-form-field>
+            <input matInput formControlName="familySituation" placeholder="Your family situation" type="text" required>
+            <mat-error *ngIf="RequestForm.get('familySituation').hasError('required') && RequestForm.get('familySituation').touched ">
+              Your family situation is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput formControlName="subject" placeholder="What do you need ?" type="text" required>
+            <mat-error *ngIf="RequestForm.get('subject').hasError('required') && RequestForm.get('subject').touched ">
+              Fulfill this field, so people may help you.</mat-error>
+          </mat-form-field>
+        </div>
+        <hr>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Due date ?</mat-label>
+            <input formControlName="dueDate" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <hr>
+        <div fxLayoutAlign = "center center">
+        <button type="submit" color = "primary" [disabled]="RequestForm.invalid" fxFlex="60%" mat-raised-button >Submit</button>
+        </div>
+      </form>
     </div>
-    
-  </form>
+  </div>
+  <div fxFlex="30%">
+    <mat-list>
+      <div mat-subheader>Urgent requests</div>
+      <mat-list-item *ngFor="let urgentreq of UrgentRequests">
+        <mat-icon mat-list-icon>update</mat-icon>
+        <div mat-line>{{urgentreq.user.firstname}} {{urgentreq.user.lastname}}</div>
+        <div mat-line> {{urgentreq.dueDate | date}} </div>
+        <hr>
+        <div mat-line> {{urgentreq.subject}} </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>
 
-<div *ngIf ="!inNeed">
-  <mat-card *ngFor="let request of Requests" fxFlex="30%">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{request.familySituation}}</mat-card-title>
-      <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        {{request.subject}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>HELP</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+<div *ngIf ="!inNeed" class ="div">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label ="Normal requests"
+    fxLayout ="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column">
+      <mat-card *ngFor="let request of NormalRequests">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Family situation : {{request.familySituation}} //   Type of request : {{request.type}}</mat-card-title>
+          <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
+          <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://s3-eu-west-1.amazonaws.com/hrtransformations/production/b7974f00e256fe18d49a5d2600542532/helping-out-of-a-hole.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            {{request.subject}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="requestTaken(request._id)">HELP</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Urgent requests">
+    <div fxLayout ="row"
+      fxLayout.sm="column"
+      fxLayout.xs="column">
+      <mat-card *ngFor="let request of UrgentRequests" fxFlex ="30%">
+        <div>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Family situation : {{request.familySituation}} //   Type of request : {{request.type}}</mat-card-title>
+          <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
+          <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://thumbs.dreamstime.com/b/d-man-helping-person-trap-cracked-ground-illustration-earth-human-character-white-people-53128391.jpg">
+        <mat-card-content>
+          <p>
+            {{request.subject}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="requestTaken(request._id)">HELP</button>
+          <button mat-button (click)="Clik(request._id)">SHARE</button>
+          <h3 *ngIf="request.loading">Request taken, but still need reception</h3>
+          <mat-spinner *ngIf="request.loading"></mat-spinner>
+        </mat-card-actions>
+        </div>
+      </mat-card>
+    </div>
+    </mat-tab>
+  
+    <mat-tab label="Third">Content 3</mat-tab>
+  </mat-tab-group>
+
 </div>
