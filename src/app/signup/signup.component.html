@@ -24,6 +24,22 @@
   </mat-form-field>
 <div fxLayout="column">
   <mat-form-field>
+      <input matInput formControlName="mail" placeholder="Email" type="text" required>
+      <mat-error *ngIf="SignupForm.get('mail').hasError('required') && SignupForm.get('mail').touched ">
+        Email is required</mat-error>
+      <mat-error *ngIf="SignupForm.get('mail').hasError('email')">
+          Invalid email </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="telNumber" placeholder="Phnne Number" type="tel" required>
+    <mat-error *ngIf="SignupForm.get('telNumber').hasError('required') && SignupForm.get('mail').touched ">
+      Phone Number is required</mat-error>
+    <mat-error *ngIf="SignupForm.get('telNumber').hasError('pattern')">
+        Your phone number is invalid </mat-error>
+</mat-form-field>
+
+
+  <mat-form-field>
     <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
     <mat-error *ngIf="SignupForm.get('firstname').hasError('required') && SignupForm.get('firstname').touched ">
       First Name is required</mat-error>

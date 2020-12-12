@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     this.subscription.unsubscribe();
   }
   openSignupForm(){
-    const SignupRef = this.dialog.open(SignupComponent, {width: '500px', height: '500px'});
+    const SignupRef = this.dialog.open(SignupComponent, {width: '600px', height: '750px'});
     SignupRef.afterClosed()
         .subscribe(result => {
           console.log(result);

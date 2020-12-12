@@ -29,6 +29,8 @@ export class SignupComponent implements OnInit {
       inNeed: true,
       firstname:['',Validators.required],
       lastname:['',Validators.required],
+      mail:['',[Validators.required,Validators.email]],
+      telNumber:['',[Validators.required,Validators.pattern("^[0-9]*$"),]]
     })
   }
   onSubmit(){
