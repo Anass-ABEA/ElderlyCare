@@ -1,3 +1,62 @@
-<p>
-  feedback works!
-</p>
+<div class="contt">
+  <h1>Your feedbacks are very important, it help us improve</h1>
+  <p>Please leave your feedback</p>
+</div>
+
+
+<mat-horizontal-stepper #stepper>
+  <mat-step label = "Rating">
+    <p>This is your service's rating : {{value}}</p>
+    <mat-slider
+    thumbLabel
+    [displayWith]="formatLabel"
+    tickInterval="5"
+    min="1"
+    max="5"
+    [(ngModel)]="rating"></mat-slider>
+    <div class="mar">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step label = "Comment">
+    <p>This is your comment area</p>
+    <textarea matInput  placeholder="Your Comment" rows=12 [(ngModel)]="comment" [formControl]="commentFormControl"></textarea>
+    <mat-error *ngIf="commentFormControl.hasError('required') && commentFormControl.touched">
+      Please enter your comment
+    </mat-error>
+      <div class="mar">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+  </mat-step>
+  <mat-step label = "Done">
+    <p>Button to save your comment</p>
+    <section>
+      <button mat-raised-button color="primary" [disabled]="commentFormControl.invalid" (click)="onSubmit() && stepper.reset()">Save</button>
+    </section>
+    <mat-divider></mat-divider>
+    <section>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </section>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<div fxLayout="row"
+fxLayout.lt-md="column"
+fxLayoutGap="10px"
+>
+  <div *ngFor="let feedb of feedbacksT" class="conttt" fxFlex=30%>
+    <h1>Id Feedback : {{feedb._id}}</h1>
+    <h3>Date : {{feedb.createdAt | date}}</h3>
+    <h3>Author : {{feedb.user?.firstname}} {{feedb.user?.lastname}}</h3>
+    <hr>
+    <p>Rating: {{feedb.rating}} / 5</p>
+    <p>Comment: {{feedb.comment}}</p>
+  </div>
+</div>
+
+

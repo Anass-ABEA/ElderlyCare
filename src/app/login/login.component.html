@@ -15,3 +15,7 @@
       </mat-form-field>
       <button mat-button type="submit" [disabled]="loginForm.invalid">Submit</button>
 </form>
+
+<div *ngIf="errMess">
+  <h1>{{errMess}}</h1>
+</div>

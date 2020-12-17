@@ -1,8 +1,7 @@
 <mat-toolbar color="primary">
-  <span><img src="/assets/images/logo.png" height=30 width=41></span>
   <a mat-button routerLink="/welcome" routerLinkActive="active"><span class="fa fa-home fa-lg"></span> Home</a>
   <a mat-button routerLink="/aboutus" routerLinkActive="active"><span class="fa fa-info fa-lg"></span> About</a>
-  <a mat-button routerLink="/contactus" routerLinkActive="active"><span class="fa fa-address-card fa-lg"></span> Contact</a>
+  <a mat-button routerLink="/feedback" routerLinkActive="active"><span class="fa fa-address-card fa-lg"></span> FeedBack</a>
   <a mat-button *ngIf="!isInNeed && isAuthenticated" routerLink="/requests" routerLinkActive="active"><span class="fa fa-volume-control-phone fa-lg"></span> Check Requests</a>
 
   <a><button *ngIf="isInNeed && isAuthenticated" mat-button routerLink="/requests" routerLinkActive="active">Post Request</button></a>

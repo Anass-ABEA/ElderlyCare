@@ -40,7 +40,10 @@ fxLayoutGap="50px">
 </div>
 
 
-
+<div *ngIf="!Myrequests" fxLayoutAlign="center center">
+  <h1>Loading..</h1>
+  <mat-spinner></mat-spinner>
+</div>
 <div>
   <h1>Feedbacks</h1>
   <h3>Some feedbacks about our service </h3>

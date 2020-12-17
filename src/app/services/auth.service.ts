@@ -18,8 +18,9 @@ interface JWTResponse {
   user: any;
 }
 interface Signupresponse{
-  succes:boolean;
+  success:boolean;
   status:string;
+  message:string;
 }
 
 @Injectable({
@@ -87,13 +88,13 @@ export class AuthService {
    }
 
   signUp(user:any) : Observable<any> {
-    return this.http.post<Signupresponse>(baseURL +'users/signup' , 
+    return this.http.post<any>(baseURL +'users/signup' , 
     {'username':user.username, 'password':user.password, 'firstname':user.firstname,'lastname':user.lastname,
      'inNeed':user.inNeed,'mail':user.mail,'telNumber':user.telNumber})
-    .pipe(map(res=>{
-      console.log(res);
-      return{'succes':true , 'message' :'registration done'};
-    }))
+    //.pipe(map(res=>{
+      //console.log(res);
+      //return{'succes':true , 'message' :'Registration done'};
+    //}))
    }
 
    logIn(user: any): Observable<any> {

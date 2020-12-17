@@ -2,7 +2,6 @@
 fxLayout="row"
 fxLayout.lt-md="column"
 fxGap="40%">
-
   <div fxLayout="column"
   fxFlex = "70%">
     <div>
@@ -54,17 +53,33 @@ fxGap="40%">
       </form>
     </div>
   </div>
-  <div fxFlex="30%">
-    <mat-list>
-      <div mat-subheader>Urgent requests</div>
-      <mat-list-item *ngFor="let urgentreq of UrgentRequests">
-        <mat-icon mat-list-icon>update</mat-icon>
-        <div mat-line>{{urgentreq.user.firstname}} {{urgentreq.user.lastname}}</div>
-        <div mat-line> {{urgentreq.dueDate | date}} </div>
-        <hr>
-        <div mat-line> {{urgentreq.subject}} </div>
-      </mat-list-item>
-    </mat-list>
+  <div fxFlex="30%" fxLayout="column" class="con">
+    <div *ngIf="UrgentRequests">
+      <mat-list>
+        <div mat-subheader>Urgent requests</div>
+        <mat-list-item *ngFor="let urgentreq of UrgentRequests">
+          <mat-icon mat-list-icon>update</mat-icon>
+          <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
+          <div mat-line> {{urgentreq?.dueDate | date}} </div>
+          <hr>
+          <div mat-line> {{urgentreq?.subject}} </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+    <div *ngIf="NormalRequests">
+      <mat-list>
+        <div mat-subheader>Normal requests</div>
+        <mat-list-item *ngFor="let urgentreq of NormalRequests">
+          <mat-icon mat-list-icon>update</mat-icon>
+          <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
+          <div mat-line> {{urgentreq?.dueDate | date}} </div>
+          <hr>
+          <div mat-line> {{urgentreq?.subject}} </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
   </div>
 </div>
 
@@ -121,8 +136,6 @@ fxGap="40%">
       </mat-card>
     </div>
     </mat-tab>
-  
     <mat-tab label="Third">Content 3</mat-tab>
   </mat-tab-group>
-
 </div>

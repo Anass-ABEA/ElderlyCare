@@ -56,8 +56,8 @@
 
   <button type="submit" [disabled]="SignupForm.invalid || ConfirmationWrong()" mat-button >Submit</button>
 </div>
-
-
-
-
 </form>
+
+<div *ngIf="errMsg">
+  <h1>{{errMsg}}</h1>
+</div>

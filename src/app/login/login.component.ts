@@ -12,7 +12,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 export class LoginComponent implements OnInit {
   user:Object;
   loginForm:FormGroup;
-  errMess: string;
+  errMess: any;
 
   loginError={
     username:'',
@@ -77,6 +77,6 @@ onSubmit() {
       else{
         console.log(res);
       }
-    })
+    },err=>this.errMess = 'No user is matching these datas');
 }
 }

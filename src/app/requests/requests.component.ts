@@ -27,14 +27,18 @@ export class RequestsComponent implements OnInit {
      Authenticated:boolean;
 
   ngOnInit() {
-    this.reqService.getNormalRequests()
+
+    this.reqService.getRequests()
+    .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
+       this.NormalRequests = requests.filter(element=>!element.urgent)})
+    /*this.reqService.getNormalRequests()
     .subscribe(requests => {this.NormalRequests = requests;},
       errmess=> this.errMessage = <any>errmess);
-      
+    
     this.reqService.getUrgentRequests()
     .subscribe(requests => {this.UrgentRequests = requests;},
       errmess=> this.errMessage = <any>errmess);
-
+    */
     this.createForm();
     this.inNeed = this.authser.IsAuthenticatedInNeed;
     this.Authenticated = this.authser.isAuthenticated;
@@ -65,7 +69,8 @@ export class RequestsComponent implements OnInit {
         urgent:this.RequestForm.controls['urgent'].value,
         dueDate:this.RequestForm.controls['dueDate'].value}
     this.reqService.postRequest(this.Request)
-    .subscribe(res=>{console.log(res)});
+    .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
+      this.NormalRequests = requests.filter(element=>!element.urgent) ; console.log(this.UrgentRequests);console.log(this.NormalRequests)});
     this.authser.checkJWTtoken();
   }
 

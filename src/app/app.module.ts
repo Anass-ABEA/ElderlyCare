@@ -35,6 +35,8 @@ import { MyrequestsComponent } from './myrequests/myrequests.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -71,7 +73,10 @@ import {MatListModule} from '@angular/material/list';
     MatTabsModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule,
+    MatDividerModule,
+    
   ],
   entryComponents: [
     SignupComponent,
@@ -89,7 +94,8 @@ import {MatListModule} from '@angular/material/list';
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorizedInterceptor,
       multi: true
-    }
+    },
+    
   ],
   bootstrap: [AppComponent]
 })

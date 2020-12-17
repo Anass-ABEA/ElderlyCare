@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {AuthService} from '../services/auth.service';
-
+/*interface errmsg {
+  name:string,
+  message:String,
+}*/
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -11,6 +14,7 @@ import {AuthService} from '../services/auth.service';
 export class SignupComponent implements OnInit {
   SignupForm:FormGroup;
   NewUser:Object;
+  errMsg:any;
   
   constructor(private fb:FormBuilder,
     private Matref:MatDialogRef<SignupComponent>,
@@ -37,13 +41,14 @@ export class SignupComponent implements OnInit {
     this.NewUser = this.SignupForm.value;
     this.autservice.signUp(this.NewUser)
     .subscribe(res=>{
-      if(res.succes){
+      if(res.success){
         this.Matref.close(true);
       }
       else{
-        console.log(res);
+        this.errMsg = res.err.message;
       }
-    })
+      console.log(this.errMsg);
+    }, err => this.errMsg = <any>err);
   }
 
   ConfirmationWrong(){
