@@ -11,7 +11,7 @@ import {user} from '../datastructure/user';
   styleUrls: ['./myrequests.component.scss']
 })
 export class MyrequestsComponent implements OnInit {
-
+  NowComment:Boolean = false;
   CurrentUser: user;
   Myrequests:request[];
   constructor(private requestService: RequestService,
@@ -24,12 +24,12 @@ export class MyrequestsComponent implements OnInit {
    .subscribe(currentus=>this.CurrentUser = currentus);
   }
   ngOnDestroy(){
-    
   }
 
   deleteRequest(id:any){
     this.requestService.deleteRequest(id)
-      .subscribe(deleted=>this.Myrequests = deleted)
+      .subscribe(deleted=>this.Myrequests = deleted);
+      this.NowComment = true;
   }
   
 }

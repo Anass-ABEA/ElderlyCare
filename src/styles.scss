@@ -1,4 +1,4 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome';
@@ -10,8 +10,7 @@
   body { 
     padding: 0; 
     margin: 0; 
-    font-family: 'Oswald', sans-serif;
-  }
+    font-family: 'Raleway', sans-serif;  }
 
   .mat-tab-labels {
     justify-content: center;

@@ -37,6 +37,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -76,7 +77,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatListModule,
     MatStepperModule,
     MatDividerModule,
-    
+    MatProgressBarModule
   ],
   entryComponents: [
     SignupComponent,

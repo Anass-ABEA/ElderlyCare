@@ -34,19 +34,25 @@ fxLayoutGap="50px">
         <mat-card-actions>
             <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)">DELETE REQUEST</button>
             <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)" *ngIf="request.loading">In process,got it?</button>
+            <mat-progress-bar *ngIf="request.loading" mode="indeterminate"></mat-progress-bar>
         </mat-card-actions>
 </mat-card>
 </div>
 </div>
 
+<div *ngIf ="NowComment"
+fxLayout="column"
+fxLayout.lt-sm="column" class="container">
+  <div><h1>We hope that your requests went as you wanted</h1></div>
+  <div><p>You can leave a feedback here : </p></div>
+  <div><button mat-raised-button color="primary">Give a feedback</button></div>
+
+</div>
 
 <div *ngIf="!Myrequests" fxLayoutAlign="center center">
   <h1>Loading..</h1>
   <mat-spinner></mat-spinner>
 </div>
-<div>
-  <h1>Feedbacks</h1>
-  <h3>Some feedbacks about our service </h3>
-</div>
+
 
 
