@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import { MatIconRegistry } from '@angular/material';
 import {Router} from '@angular/router';
+import {UsersService} from '../services/users.service';
 
 
 @Component({
@@ -19,14 +20,20 @@ export class RequestsComponent implements OnInit {
   RequestForm:FormGroup;
   Types : Array<String> = ["Money","Medical","Food/Grossery"];
   Request:Object;
+  currentUser:any;
+  inNeed:boolean;
+  reqTaken:boolean = false;
+  Authenticated:boolean;
 
   constructor(private reqService:RequestService,private router:Router,
-     private fb:FormBuilder, private authser:AuthService) { }
-     inNeed:boolean;
-     reqTaken:boolean = false;
-     Authenticated:boolean;
+    private fb:FormBuilder,
+    private authser:AuthService,
+    private userService: UsersService) { }
+    
 
   ngOnInit() {
+    this.userService.getCurrentUser()
+    .subscribe(curruser => this.currentUser = curruser._id);
 
     this.reqService.getRequests()
     .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
@@ -82,4 +89,12 @@ export class RequestsComponent implements OnInit {
     this.reqService.putRequest(id)
     .subscribe(requests => this.UrgentRequests = requests.filter(el=>el.urgent));
   }
+
+
+  MineorNot(id:any){
+    if(this.currentUser == id){
+      return true;
+    }
+    return false;
+  } 
 }

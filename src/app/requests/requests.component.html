@@ -106,7 +106,7 @@ fxGap="40%">
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="requestTaken(request._id)">HELP</button>
-          <button mat-button>SHARE</button>
+          <button mat-button *ngIf= "MineorNot(request.helps[0]._id)" >CANCEL THE HELP</button>
           <h3 *ngIf="request.loading">Request taken, but still need reception</h3>
           <div *ngIf="request.loading" class="con">
             <h1>You can contact this person , via his phone number or mail : </h1>
@@ -137,7 +137,7 @@ fxGap="40%">
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="requestTaken(request._id)">HELP</button>
-          <button mat-button (click)="Clik(request._id)">SHARE</button>
+          <button mat-button *ngIf= "MineorNot(request.helps[0]._id)" >CANCEL THE HELP</button>
           <h3 *ngIf="request.loading">Request taken, but still need reception</h3>
           <div *ngIf="request.loading" class="con">
             <h1>You can contact this person , via his phone number or mail : </h1>
