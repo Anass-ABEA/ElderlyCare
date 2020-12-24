@@ -24,6 +24,7 @@ export class RequestsComponent implements OnInit {
   inNeed:boolean;
   reqTaken:boolean = false;
   Authenticated:boolean;
+  bool:boolean;
 
   constructor(private reqService:RequestService,private router:Router,
     private fb:FormBuilder,
@@ -32,20 +33,17 @@ export class RequestsComponent implements OnInit {
     
 
   ngOnInit() {
+    
     this.userService.getCurrentUser()
     .subscribe(curruser => this.currentUser = curruser._id);
 
     this.reqService.getRequests()
     .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
        this.NormalRequests = requests.filter(element=>!element.urgent)})
-    /*this.reqService.getNormalRequests()
-    .subscribe(requests => {this.NormalRequests = requests;},
-      errmess=> this.errMessage = <any>errmess);
+
+    console.log(this.UrgentRequests);
+    console.log(this.NormalRequests);
     
-    this.reqService.getUrgentRequests()
-    .subscribe(requests => {this.UrgentRequests = requests;},
-      errmess=> this.errMessage = <any>errmess);
-    */
     this.createForm();
     this.inNeed = this.authser.IsAuthenticatedInNeed;
     this.Authenticated = this.authser.isAuthenticated;
@@ -77,7 +75,7 @@ export class RequestsComponent implements OnInit {
         dueDate:this.RequestForm.controls['dueDate'].value}
     this.reqService.postRequest(this.Request)
     .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
-      this.NormalRequests = requests.filter(element=>!element.urgent) ; console.log(this.UrgentRequests);console.log(this.NormalRequests)});
+      this.NormalRequests = requests.filter(element=>!element.urgent);});
     this.authser.checkJWTtoken();
   }
 
@@ -87,14 +85,25 @@ export class RequestsComponent implements OnInit {
 
   requestTaken(id:any){
     this.reqService.putRequest(id)
-    .subscribe(requests => this.UrgentRequests = requests.filter(el=>el.urgent));
+    .subscribe(requests => {this.UrgentRequests = requests.filter(el=>el.urgent);
+       this.NormalRequests = requests.filter(el=>!el.urgent) ; console.log(this.UrgentRequests);
+        console.log(this.NormalRequests)});
   }
 
 
-  MineorNot(id:any){
-    if(this.currentUser == id){
+  MineorNot(request:any){
+    if(this.currentUser == request.helps[0]._id){
       return true;
     }
-    return false;
-  } 
+    else{
+      return false;
+    }
+  }
+  
+  CancelHelp(id:any){
+    this.reqService.CancelHelp(id)
+    .subscribe(upRequests => {this.UrgentRequests = upRequests.filter(element=>element.urgent) ;
+    this.NormalRequests = upRequests.filter(element=>!element.urgent)} )
+  }
 }
+//*ngIf= "MineorNot(request.helps[0]._id)"

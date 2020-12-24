@@ -35,7 +35,7 @@ export class RequestService {
     'loading':request.loading,'urgent':request.urgent,'reqResponded':request.reqResponded,'dueDate':request.dueDate})
     .pipe(catchError(this.httperrorHandler.handleError))
   }
-  
+
   putRequest(id:any): Observable<any>{
     return this.http.put(baseURL + 'requests/'+id , {loading:true})
     .pipe(catchError(error => this.httperrorHandler.handleError(error)));
@@ -44,5 +44,12 @@ export class RequestService {
   deleteRequest(id:any) : Observable<any>{
     return this.http.delete(baseURL + 'requests/' +id)
     .pipe(catchError(error => this.httperrorHandler.handleError(error)));
+  }
+
+  CancelHelp(id:any) : Observable<any>{
+    return this.http.delete<any>(baseURL + 'requests/' + id + '/helps')
+    .pipe(catchError(error => this.httperrorHandler.handleError(error)));
+
+
   }
 }

@@ -10,5 +10,5 @@ export interface request {
     reqResponded:boolean,
     urgent:boolean,
     user:user,
-    helper:user
+    helps:user[]
 }
