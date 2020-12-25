@@ -26,8 +26,8 @@ export class RequestService {
     return this.http.get<request[]>(baseURL + 'requests?urgent=true')
     .pipe(catchError(this.httperrorHandler.handleError))
   }*/
-  getMyRequests(): Observable<request[]>{
-    return this.http.get<request[]>(baseURL + 'requests/myRequests')
+  getMyRequests(): Observable<any>{
+    return this.http.get<any>(baseURL + 'requests/myRequests')
     .pipe(catchError(this.httperrorHandler.handleError),delay(1200))
   }
   postRequest(request:any): Observable<any> {
@@ -37,7 +37,7 @@ export class RequestService {
   }
 
   putRequest(id:any): Observable<any>{
-    return this.http.put(baseURL + 'requests/'+id , {loading:true})
+    return this.http.put<any>(baseURL + 'requests/'+id , {loading:true})
     .pipe(catchError(error => this.httperrorHandler.handleError(error)));
   }
   

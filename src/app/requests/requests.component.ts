@@ -14,8 +14,8 @@ import {UsersService} from '../services/users.service';
   styleUrls: ['./requests.component.scss']
 })
 export class RequestsComponent implements OnInit {
-  NormalRequests : request[];
-  UrgentRequests : request[];
+  NormalRequests : any
+  UrgentRequests : any
   errMessage : string;
   RequestForm:FormGroup;
   Types : Array<String> = ["Money","Medical","Food/Grossery"];
@@ -33,22 +33,17 @@ export class RequestsComponent implements OnInit {
     
 
   ngOnInit() {
-    
     this.userService.getCurrentUser()
     .subscribe(curruser => this.currentUser = curruser._id);
 
     this.reqService.getRequests()
     .subscribe(requests => {this.UrgentRequests = requests.filter(element=>element.urgent);
-       this.NormalRequests = requests.filter(element=>!element.urgent)})
+       this.NormalRequests = requests.filter(element=>!element.urgent) ;})
 
-    console.log(this.UrgentRequests);
-    console.log(this.NormalRequests);
-    
     this.createForm();
     this.inNeed = this.authser.IsAuthenticatedInNeed;
     this.Authenticated = this.authser.isAuthenticated;
-    console.log(this.inNeed);
-    console.log(this.Authenticated);
+    
   }
   
 
@@ -92,18 +87,33 @@ export class RequestsComponent implements OnInit {
 
 
   MineorNot(request:any){
-    if(this.currentUser == request.helps[0]._id){
-      return true;
-    }
-    else{
-      return false;
-    }
+      if(request.helps[0] == undefined){
+        return false;
+      }
+      else{
+        if(request.helps[0]._id == this.currentUser){
+          return true;
+        }
+        else{
+          return false;
+        }
+        
+      }
   }
   
   CancelHelp(id:any){
     this.reqService.CancelHelp(id)
     .subscribe(upRequests => {this.UrgentRequests = upRequests.filter(element=>element.urgent) ;
     this.NormalRequests = upRequests.filter(element=>!element.urgent)} )
+  }
+
+  Test(request:any){
+    if(request.helps[0]._id == this.currentUser){
+      console.log(true);
+    }
+    else{
+      console.log(false);
+    }
   }
 }
 //*ngIf= "MineorNot(request.helps[0]._id)"

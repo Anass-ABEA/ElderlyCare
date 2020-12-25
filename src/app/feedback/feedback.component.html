@@ -50,7 +50,6 @@ fxLayout.lt-md="column"
 fxLayoutGap="10px"
 >
   <div *ngFor="let feedb of feedbacksT" class="conttt" fxFlex=30%>
-    <h1>Id Feedback : {{feedb._id}}</h1>
     <h3>Date : {{feedb.createdAt | date}}</h3>
     <h3>Author : {{feedb.user?.firstname}} {{feedb.user?.lastname}}</h3>
     <hr>

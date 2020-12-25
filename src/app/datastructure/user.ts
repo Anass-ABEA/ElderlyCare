@@ -4,4 +4,6 @@ export interface user{
     lastname:string,
     firstname:string,
     inNeed:boolean,
+    telNumber:string,
+    mail:string,
 }
