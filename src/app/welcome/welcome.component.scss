@@ -1,24 +1,48 @@
-.container{
-    padding:5px;
-    margin:20px;
-    font-family: 'Raleway', sans-serif;
-}
-
-hr{
-    margin:20px;
-}
-
-.dev{
+.row{
     padding:20px;
 }
 
-.contt{
-    background-color:whitesmoke;
+.top-container{
+    padding:20px 35px;
+    background-image: url("/assets/Home/care.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.top-container .row{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+.top-container img{
+    border-radius: 10px;
 }
 .container{
-    background-color:whitesmoke;
+    background: white;
+    border-radius: 10px;
+}
+.container-body{
+    background-color: #4a484836;
+    padding: 20px 0px;
+}
+.stats span{
+    font-size: xx-large;
+}
+.stats{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100%;
+}
+h4{
+    outline-style: auto;
+}
+h1,h2{
+    text-transform: uppercase;
 }
 
-.dev{
-    margin-left: 5px;
+i{
+    color: #3f51b5;
+    padding: 30px 30px;
+    border: 2px solid;
+    border-radius: 50%;
+    margin: 20px;
 }

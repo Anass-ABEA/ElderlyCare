@@ -1,53 +1,52 @@
-<div fxLayout = "row"
-fxLayout.lt-sm="column"
-fxLayoutGap="50px">
-  <div fxFlex="30%">
-    <h1>Your requests</h1>
-    <h3>You can check here, the state of your requests</h3>
-    <h3>Any requests whose due date is expired, will be automaticaly deleted</h3>
+<div class="container-fluid">
+  <div class="row separator">
+    <div class="col-12 col-md-8">
+      <h2 class="text-center">Your requests</h2>
+      <h5>You can check here, the state of your requests</h5>
+      <h5>Any requests whose due date is expired, will be automaticaly deleted <strong>it shouldn't be deleted bro atkon chi warning beli expired w saf w tdar beli rah it's not visible (if possible tzad visibility)</strong> </h5>
+    </div>
+    <div class="col-12 col-md-4">
+      <h2 class="text-center">Your profile : </h2>
+      <h5>Full name : {{CurrentUser.firstname}} {{CurrentUser.lastname}}.</h5>
+      <h5 *ngIf="CurrentUser.inNeed"> Account Type : In need.</h5>
+    </div>
   </div>
-  <hr>
-  <div fxFlex = "70%" class = "flex-spacer">
-    <h1>Your profil : </h1>
-    <h3>Full name : {{CurrentUser.firstname}} {{CurrentUser.lastname}}.</h3>
-    <h3 *ngIf="CurrentUser.inNeed">In need.</h3>
+</div>
+  <div class="container request-list">
+    <div class="row">
+      <div *ngIf ="NowComment" id="comment" class="col-12 comment-div">
+          <h2 class="text-center">Your request has been successfully removed</h2>
+          <p class="text-center">feel free to  leave us your feedback 
+          <button mat-raised-button routerLink="/feedback" routerLinkActive="active" color="primary">Give a feedback</button></p>
+
+        </div>
+      <div class="col text-center" *ngFor="let request of Myrequests">
+      <mat-card style="max-width: 300px;">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title> <strong>Family Situation :</strong>  {{request.familySituation}}</mat-card-title>
+          <mat-card-subtitle> <strong>Due date :</strong>  {{request.dueDate | date}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://image.api.playstation.com/vulcan/ap/rnd/202009/3021/ONwZGjz4oxlLUpqBPu6nx8tl.png">
+              <mat-card-content>
+                <p>
+                  {{request.subject}}
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                  <button class="btn-danger btn"  (click) = "deleteRequest(request._id)"><i class="fa fa-trash"></i></button>
+                  <button  class="btn-warning btn"  (click) = "editRequest(request._id)"><i class="fa fa-edit"></i></button>
+                  <button n class="btn btn-success" (click) = "receivedRequest(request._id)" *ngIf="request.loading"> <i class="fa fa-check"></i> Received</button>
+                  <mat-progress-bar *ngIf="request.loading" mode="indeterminate"></mat-progress-bar>
+              </mat-card-actions>
+      </mat-card>
+      </div>
+      </div>
   </div>
-</div>
-<hr>
-<div fxLayout.lt-sm="column"
-      fxLayout = "row"
-      fxLayoutGap="20px"
-      >
-<div fxLayoutAlign="start center">
-<mat-card *ngFor="let request of Myrequests">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Family Situation : {{request.familySituation}}</mat-card-title>
-    <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="https://image.api.playstation.com/vulcan/ap/rnd/202009/3021/ONwZGjz4oxlLUpqBPu6nx8tl.png">
-        <mat-card-content>
-          <p>
-            {{request.subject}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)">DELETE REQUEST</button>
-            <button mat-raised-button color="primary" (click) = "deleteRequest(request._id)" *ngIf="request.loading">In process,got it?</button>
-            <mat-progress-bar *ngIf="request.loading" mode="indeterminate"></mat-progress-bar>
-        </mat-card-actions>
-</mat-card>
-</div>
-</div>
 
-<div *ngIf ="NowComment"
-fxLayout="column"
-fxLayout.lt-sm="column" class="container">
-  <div><h1>We hope that your requests went as you wanted</h1></div>
-  <div><p>You can leave a feedback here : </p></div>
-  <div><button mat-raised-button routerLink="/feedback" routerLinkActive="active" color="primary">Give a feedback</button></div>
 
-</div>
+
+
 
 <div *ngIf="!Myrequests" fxLayoutAlign="center center">
   <h1>Loading..</h1>

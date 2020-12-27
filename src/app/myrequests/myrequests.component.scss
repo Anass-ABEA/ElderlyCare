@@ -5,13 +5,17 @@
 
 
 .btn{
-    padding:10px;
-    display: table-cell;
+    margin:10px;
 }
 
-.container{
-    background-color:whitesmoke;
-    margin:8px;
-    padding:8px;
+.separator{
+    margin:30px 0;
 }
 
+.request-list{
+    margin-bottom: 50px;
+}
+.comment-div{
+    background: rgba(26,255,26,0.5);
+    border-radius: 300px;
+}

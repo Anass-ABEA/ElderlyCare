@@ -1,61 +1,69 @@
 <mat-toolbar color="primary">
-  Welcome to ElderyCare, please sign up.
-<span class="flex-spacer"></span>
-<button mat-button mat-dialog-close>&times;</button>
+  Sign Up
+  <span class="flex-spacer"></span>
+  <button mat-button mat-dialog-close><i class="fa fa-close"></i></button>
 </mat-toolbar>
 
-<form novalidate [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
-<div fxLayout ="column">
-  <mat-form-field>
-    <input matInput formControlName="username" placeholder="Username" type="text" required>
-    <mat-error *ngIf="SignupForm.get('username').hasError('required') && SignupForm.get('username').touched ">Username is required</mat-error>
-  </mat-form-field>
- 
-  <mat-form-field>
-    <input matInput formControlName="password" placeholder="password" type="password" required>
-    <mat-error *ngIf="SignupForm.get('password').hasError('required') && SignupForm.get('password').touched ">Password is required</mat-error>
-  </mat-form-field>
-</div>
+<form style="margin: 30px 0;" novalidate [formGroup]="SignupForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="Username" type="text" required>
+      <mat-error *ngIf="SignupForm.get('username').hasError('required') && SignupForm.get('username').touched ">Username
+        is required</mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
+
+  </div>
+  <mat-form-field style="width: 45%;">
+    <input matInput formControlName="password" placeholder="password" type="password" required>
+    <mat-error *ngIf="SignupForm.get('password').hasError('required') && SignupForm.get('password').touched ">Password
+      is required</mat-error>
+  </mat-form-field>
+  <mat-form-field style="width: 45%; margin-left: 10%;">
+
     <input matInput formControlName="Confirmpassword" placeholder="Confirm Password" type="password" required>
-    <mat-error *ngIf="SignupForm.get('Confirmpassword').hasError('required') && SignupForm.get('Confirmpassword').touched ">
+    <mat-error
+      *ngIf="SignupForm.get('Confirmpassword').hasError('required') && SignupForm.get('Confirmpassword').touched ">
       Please confirm your password</mat-error>
   </mat-form-field>
-<div fxLayout="column">
-  <mat-form-field>
+  <div fxLayout="column">
+    <mat-form-field>
       <input matInput formControlName="mail" placeholder="Email" type="text" required>
       <mat-error *ngIf="SignupForm.get('mail').hasError('required') && SignupForm.get('mail').touched ">
         Email is required</mat-error>
       <mat-error *ngIf="SignupForm.get('mail').hasError('email')">
-          Invalid email </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="telNumber" placeholder="Phnne Number" type="tel" required>
-    <mat-error *ngIf="SignupForm.get('telNumber').hasError('required') && SignupForm.get('mail').touched ">
-      Phone Number is required</mat-error>
-    <mat-error *ngIf="SignupForm.get('telNumber').hasError('pattern')">
+        Invalid email </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="telNumber" placeholder="Phone Number" type="tel" required>
+      <mat-error *ngIf="SignupForm.get('telNumber').hasError('required') && SignupForm.get('mail').touched ">
+        Phone Number is required</mat-error>
+      <mat-error *ngIf="SignupForm.get('telNumber').hasError('pattern')">
         Your phone number is invalid </mat-error>
-</mat-form-field>
+    </mat-form-field>
 
 
-  <mat-form-field>
-    <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
-    <mat-error *ngIf="SignupForm.get('firstname').hasError('required') && SignupForm.get('firstname').touched ">
-      First Name is required</mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
+      <mat-error *ngIf="SignupForm.get('firstname').hasError('required') && SignupForm.get('firstname').touched ">
+        First Name is required</mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
-    <mat-error *ngIf="SignupForm.get('lastname').hasError('required') && SignupForm.get('lastname').touched ">
-      Last Name is required</mat-error>
-  </mat-form-field>
-</div>
-<div fxLayout ="column">
-  <mat-slide-toggle formControlName="inNeed" >Are you in need ?</mat-slide-toggle>
+    <mat-form-field>
+      <input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
+      <mat-error *ngIf="SignupForm.get('lastname').hasError('required') && SignupForm.get('lastname').touched ">
+        Last Name is required</mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column"  style="display: inline!important;">
+    <mat-slide-toggle formControlName="inNeed" class="text-center" style="width: 50%;">Are you in need?</mat-slide-toggle>
+    <mat-slide-toggle formControlName="doctor" class="text-center" style="width: 50%;">Are you a doctor?</mat-slide-toggle>
 
-  <button type="submit" [disabled]="SignupForm.invalid || ConfirmationWrong()" mat-raised-button color="primary">Submit</button>
-</div>
+
+    <button type="submit" [disabled]="SignupForm.invalid || ConfirmationWrong()" mat-raised-button
+      color="primary">Submit</button>
+  </div>
+  
 </form>
 
 <div *ngIf="errMsg">

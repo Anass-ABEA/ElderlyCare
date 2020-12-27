@@ -1,61 +1,61 @@
-<div class="contt">
-  <h1>Your feedbacks are very important, it help us improve</h1>
-  <p>Please leave your feedback</p>
-</div>
-
-
-<mat-horizontal-stepper #stepper>
-  <mat-step label = "Rating">
-    <p>This is your service's rating : {{value}}</p>
-    <mat-slider
-    thumbLabel
-    [displayWith]="formatLabel"
-    tickInterval="5"
-    min="1"
-    max="5"
-    [(ngModel)]="rating"></mat-slider>
-    <div class="mar">
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
+<div class="container">
+  <h1 class="text-center">leave your feedback</h1>
+  <h3 class="text-center">Your feedback is very important, it help us improve our service</h3>
+  
+  <mat-horizontal-stepper #stepper>
+    <div class="row">
+    <mat-step label="Rating" class="body-element">
+      <div class="col-12 text-center">
+        <p>1st step: rate our service {{value}}</p>
+      <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="5" min="1" max="5" [(ngModel)]="rating"></mat-slider>
+      <div class="mar">
+        <button mat-button matStepperPrevious disabled>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
     </div>
-  </mat-step>
-  <mat-step label = "Comment">
-    <p>This is your comment area</p>
-    <textarea matInput  placeholder="Your Comment" rows=12 [(ngModel)]="comment" [formControl]="commentFormControl"></textarea>
-    <mat-error *ngIf="commentFormControl.hasError('required') && commentFormControl.touched">
-      Please enter your comment
-    </mat-error>
+    </mat-step>
+    <mat-step label="Comment">
+      <div class="col-12 text-center">
+        <p>2nd step: write your comment</p>
+      <textarea matInput placeholder="Your Comment" rows=12 [(ngModel)]="comment" class="tb"
+        [formControl]="commentFormControl"></textarea>
+      <mat-error *ngIf="commentFormControl.hasError('required') && commentFormControl.touched">
+        Please enter your comment
+      </mat-error>
       <div class="mar">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
-  </mat-step>
-  <mat-step label = "Done">
-    <p>Button to save your comment</p>
-    <section>
-      <button mat-raised-button color="primary" [disabled]="commentFormControl.invalid" (click)="onSubmit() && stepper.reset()">Save</button>
-    </section>
-    <mat-divider></mat-divider>
-    <section>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </section>
-  </mat-step>
-</mat-horizontal-stepper>
-
-<div fxLayout="row"
-fxLayout.lt-md="column"
-fxLayoutGap="10px"
->
-  <div *ngFor="let feedb of feedbacksT" class="conttt" fxFlex=30%>
-    <h3>Date : {{feedb.createdAt | date}}</h3>
-    <h3>Author : {{feedb.user?.firstname}} {{feedb.user?.lastname}}</h3>
-    <hr>
-    <p>Rating: {{feedb.rating}} / 5</p>
-    <p>Comment: {{feedb.comment}}</p>
+    </div>
+    </mat-step>
+    <mat-step label="Done">
+      <div class="col-12 text-center">
+      <p>3rd step: submit your feedback</p>
+      <section>
+        <button mat-raised-button color="primary" class="btn-sbmt" [disabled]="commentFormControl.invalid"
+          (click)="onSubmit() && stepper.reset()">Save</button>
+      </section>
+      <mat-divider></mat-divider>
+      <section>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext disabled>Next</button>
+        </div>
+      </section>
+    </div>
+    </mat-step>
   </div>
+  </mat-horizontal-stepper>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+    <div *ngFor="let feedb of feedbacksT" class="conttt" fxFlex=30%>
+      <h3>Date : {{feedb.createdAt | date}}</h3>
+      <h3>Author : {{feedb.user?.firstname}} {{feedb.user?.lastname}}</h3>
+      <hr>
+      <p>Rating: {{feedb.rating}} / 5</p>
+      <p>Comment: {{feedb.comment}}</p>
+    </div>
+  </div>
+
+
 </div>
-
-

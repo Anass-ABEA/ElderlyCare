@@ -4,17 +4,17 @@
   <a mat-button routerLink="/feedback" routerLinkActive="active"><span class="fa fa-address-card fa-lg"></span> FeedBack</a>
   <a mat-button *ngIf="!isInNeed && isAuthenticated" routerLink="/requests" routerLinkActive="active"><span class="fa fa-volume-control-phone fa-lg"></span> Check Requests</a>
 
-  <a><button *ngIf="isInNeed && isAuthenticated" mat-button routerLink="/requests" routerLinkActive="active">Post Request</button></a>
+  <a><button *ngIf="isInNeed && isAuthenticated" mat-button routerLink="/requests" routerLinkActive="active"> <span class="fa fa-plus fa-lg"></span> Post Request</button></a>
 
   <span class="flex-spacer"></span>
   <a *ngIf="!username" mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg"></span> Login</a>
   <a *ngIf="!username" mat-button (click)="openSignupForm()"><span class="fa fa-user-plus fa-lg"></span> Signup</a>
 
-  <button *ngIf="isAuthenticated && username" mat-button [matMenuTriggerFor]="request"><span class="fa fa-user-circle fa-lg"></span>{{username | uppercase}} </button>
+  <button *ngIf="isAuthenticated && username" mat-button [matMenuTriggerFor]="request"><span class="fa fa-user-circle "></span> {{username | uppercase}} </button>
     <mat-menu #request="matMenu" [overlapTrigger]="false">
-    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/feedback"><span class="fa fa-commenting fa-lg"></span>Give a feedback</button>
-    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/myRequests"><span class="fa fa-database fa-lg"></span>Check out my requests</button>
-    <button mat-menu-item (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span>Log out</button>
+    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/feedback"><span class="fa fa-commenting "></span> Give a feedback</button>
+    <button *ngIf="isInNeed && isAuthenticated" mat-menu-item routerLink="/myRequests"><span class="fa fa-list "></span> Check out my requests</button>
+    <button mat-menu-item (click)="logOut()"><span class="fa fa-sign-out"></span> Log out</button>
     </mat-menu>
 
 </mat-toolbar>

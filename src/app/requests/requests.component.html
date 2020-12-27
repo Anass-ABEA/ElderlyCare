@@ -1,160 +1,90 @@
-<div *ngIf="inNeed" class ="maindiv"
-fxLayout="row"
-fxLayout.lt-md="column"
-fxGap="40%">
-  <div fxLayout="column"
-  fxFlex = "70%">
-    <div>
-      <h1>Fulfill your request</h1>
-      <h4>Make sure you fulfill it correctly , so people may help you without any problem</h4>
-    </div>
-    <div>
-      <form novalidate [formGroup]="RequestForm" (ngSubmit)="onSubmit()">
-        <div fxLayoutGap="2%">
-          <mat-form-field appearance="fill">
-            <mat-label>Type ?</mat-label>
-            <mat-select formControlName="type">
-              <mat-option *ngFor="let type of Types" [value]="type">
-                {{type}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          
-        <mat-slide-toggle formControlName="urgent">Urgent</mat-slide-toggle>
-        </div>
-        <hr>
-        <div
-        fxLayout="column">
-          <mat-form-field>
-            <input matInput formControlName="familySituation" placeholder="Your family situation" type="text" required>
-            <mat-error *ngIf="RequestForm.get('familySituation').hasError('required') && RequestForm.get('familySituation').touched ">
-              Your family situation is required</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput formControlName="subject" placeholder="What do you need ?" type="text" required>
-            <mat-error *ngIf="RequestForm.get('subject').hasError('required') && RequestForm.get('subject').touched ">
-              Fulfill this field, so people may help you.</mat-error>
-          </mat-form-field>
-        </div>
-        <hr>
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Due date ?</mat-label>
-            <input formControlName="dueDate" matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <hr>
-        <div fxLayoutAlign = "center center">
-        <button type="submit" color = "primary" [disabled]="RequestForm.invalid" fxFlex="60%" mat-raised-button >Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div fxFlex="30%" fxLayout="column" class="con">
-    <div *ngIf="UrgentRequests">
-      <mat-list>
-        <div mat-subheader>Urgent requests</div>
-        <mat-list-item *ngFor="let urgentreq of UrgentRequests">
-          <mat-icon mat-list-icon>update</mat-icon>
-          <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
-          <div mat-line> {{urgentreq?.dueDate | date}} </div>
-          <div mat-line> {{urgentreq?.type}} </div>
-
-          <hr>
-          <div mat-line> {{urgentreq?.subject}} </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-    </div>
-    <div *ngIf="NormalRequests">
-      <mat-list>
-        <div mat-subheader>Normal requests</div>
-        <mat-list-item *ngFor="let urgentreq of NormalRequests">
-          <mat-icon mat-list-icon>update</mat-icon>
-          <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
-          <div mat-line> {{urgentreq?.dueDate | date}} </div>
-          <hr>
-          <div mat-line> {{urgentreq?.subject}} </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-    </div>
-  </div>
-</div>
-
-<div *ngIf ="!inNeed" class ="div">
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Normal requests">
-      <div fxLayout ="row"
-        fxLayout.sm="column"
-        fxLayout.xs="column">
-        <mat-card *ngFor="let request of NormalRequests" fxFlex ="30%">
-          <div>
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Family situation : {{request.familySituation}} //   Type of request : {{request.type}}</mat-card-title>
-            <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
-            <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="https://thumbs.dreamstime.com/b/d-man-helping-person-trap-cracked-ground-illustration-earth-human-character-white-people-53128391.jpg">
-          <mat-card-content>
-            <p>
-              {{request.subject}}
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button *ngIf="!request.loading" (click)="requestTaken(request._id)">HELP</button>
-            <button mat-button *ngIf="MineorNot(request)" (click) = "CancelHelp(request._id)" >CANCEL THE HELP</button>
-
-            <h3 *ngIf="request.loading">Request taken, but still need reception</h3>
-            <mat-spinner *ngIf="request.loading"></mat-spinner>
-            <div *ngIf="request.loading && MineorNot(request)" class="con">
-              <h1>You can contact this person , via his phone number or mail : </h1>
-              <p><strong>Phone number : </strong> {{request.user.telNumber}}</p>
-            <p><strong>Email : </strong>{{request.user.mail}}</p>
-            </div>
-            
-          </mat-card-actions>
-          </div>
-        </mat-card>
+<div class="container-fluid">
+  <div *ngIf="inNeed" class="row">
+    <div class="col-12 col-md-8">
+      <div class="row">
+      <div class="col-12 text-center">
+        <h2 class="text-center">fill and post your request</h2>
       </div>
-      </mat-tab>
-    <mat-tab label="Urgent requests">
-    <div fxLayout ="row"
-      fxLayout.sm="column"
-      fxLayout.xs="column">
-      <mat-card *ngFor="let request of UrgentRequests" fxFlex ="30%">
-        <div>
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Family situation : {{request.familySituation}} //   Type of request : {{request.type}}</mat-card-title>
-          <mat-card-subtitle>{{request.user.firstname}} {{request.user.lastname}}</mat-card-subtitle>
-          <mat-card-subtitle>Due date : {{request.dueDate | date}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="https://thumbs.dreamstime.com/b/d-man-helping-person-trap-cracked-ground-illustration-earth-human-character-white-people-53128391.jpg">
-        <mat-card-content>
-          <p>
-            {{request.subject}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="requestTaken(request._id)">HELP</button>
-          <button mat-button (click) = "CancelHelp(request._id)" >CANCEL THE HELP</button>
-          
-          <h3 *ngIf="request.loading">Request taken, but still need reception</h3>
-          <mat-spinner *ngIf="request.loading"></mat-spinner>
-          <div *ngIf="request.loading" class="con">
-            <h1>You can contact this person , via his phone number or mail : </h1>
-            <p><strong>Phone number : </strong> {{request.user.telNumber}}</p>
-            <p><strong>Email : </strong>{{request.user.mail}}</p>
+      <div class="col-12">
+        <form novalidate [formGroup]="RequestForm" (ngSubmit)="onSubmit()">
+          <div fxLayoutGap="2%">
+            <mat-form-field appearance="fill">
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let type of Types" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-slide-toggle formControlName="urgent">Urgent</mat-slide-toggle>
           </div>
-        </mat-card-actions>
-        </div>
-      </mat-card>
+          <hr>
+          <div fxLayout="column">
+            <mat-form-field>
+              <input matInput formControlName="familySituation" placeholder="Your family situation" type="text"
+                required>
+              <mat-error
+                *ngIf="RequestForm.get('familySituation').hasError('required') && RequestForm.get('familySituation').touched ">
+                Your family situation is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput formControlName="subject" placeholder="describe what you need" type="text" required>
+              <mat-error *ngIf="RequestForm.get('subject').hasError('required') && RequestForm.get('subject').touched ">
+                fill this field, so people may help you.</mat-error>
+            </mat-form-field>
+          </div>
+          <hr>
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Due date</mat-label>
+              <input formControlName="dueDate" matInput [matDatepicker]="picker" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <hr>
+          <div fxLayoutAlign="center center">
+            <button type="submit" color="primary" [disabled]="RequestForm.invalid" fxFlex="60%"
+              mat-raised-button>Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="row">
+      <div *ngIf="UrgentRequests"  class="col-12">
+        <h2 class="text-center">Recent Requests</h2>
+        <mat-list>
+          <span mat-subheader>Urgent requests</span>
+          <mat-list-item *ngFor="let urgentreq of UrgentRequests">
+            <mat-icon mat-list-icon>update</mat-icon>
+            <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
+            <div mat-line> {{urgentreq?.dueDate | date}} </div>
+            <div mat-line> {{urgentreq?.type}} </div>
+
+            <hr>
+            <div mat-line> {{urgentreq?.subject}} </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+      <div *ngIf="NormalRequests">
+        <mat-list>
+          <span mat-subheader>Normal requests</span>
+          <mat-list-item *ngFor="let urgentreq of NormalRequests">
+            <mat-icon mat-list-icon>update</mat-icon>
+            <div mat-line>{{urgentreq.user?.firstname}} {{urgentreq.user?.lastname}}</div>
+            <div mat-line> {{urgentreq?.dueDate | date}} </div>
+            <hr>
+            <div mat-line> {{urgentreq?.subject}} </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+    </div>
+  </div>
 </div>

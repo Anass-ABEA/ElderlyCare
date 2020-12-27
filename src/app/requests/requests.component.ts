@@ -33,6 +33,7 @@ export class RequestsComponent implements OnInit {
     
 
   ngOnInit() {
+
     this.userService.getCurrentUser()
     .subscribe(curruser => this.currentUser = curruser._id);
 

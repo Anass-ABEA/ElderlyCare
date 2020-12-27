@@ -30,6 +30,9 @@ export class MyrequestsComponent implements OnInit {
     this.requestService.deleteRequest(id)
       .subscribe(deleted=>this.Myrequests = deleted);
       this.NowComment = true;
+      setTimeout(() => {
+              this.NowComment= false;
+      },5000);
   }
-  
+ 
 }

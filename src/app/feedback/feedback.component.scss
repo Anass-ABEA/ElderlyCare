@@ -1,23 +1,17 @@
-.contt{
-    background-color:whitesmoke;
-    padding:10px;
-    border-radius: 20;
+h1{
+    text-transform: uppercase;
 }
 
-
-.marg{
-    margin:20px;
+.body-element{
+    width: fit-content;
+    margin: auto;
 }
 
-section{
-    display: table;
+.tb{
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 20px 0;
 }
-
-.conttt{
-    background-color:whitesmoke;
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 15px;
-    width: 400px;
-    
+.btn-sbmt{
+    margin: 50px 0;
 }
